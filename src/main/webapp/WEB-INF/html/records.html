@@ -1,0 +1,27 @@
+<div data-ng-controller="EventController">
+	<div class="page-header">
+		<h2>Today's Events</h2>
+	</div>
+	<div data-ng-init="getTodaysRecords()">
+		<table class="table table-sevented">
+	  		<thead class="thead-inverse">
+		   	 	<tr>
+		      		<th>Day</th>
+		      		<th>Description</th>
+		   	 	</tr>
+	  		</thead>
+	  		<tbody>
+	    			<tr data-ng-repeat="record in records | filter:tablePagination.paginate">
+					<td>{{ record.day | date:'MM/dd/yyyy' }}</td>
+					<td>{{ record.event.description | limitTo: 40 }}{{event.description.length > 40 ? '...' : ''}}</td>
+			    </tr>
+	  		</tbody>
+		</table>
+		<ul class="breadcrumb">
+            <li><button class="btn btn-xs" data-ng-disabled="currentPage === 1"  data-ng-click="setPrev()">Prev</button></li>
+            <li>{{ currentPage }}</li>
+            <li><button class="btn btn-xs" data-ng-disabled="tablePagination.maxPage === 0 || currentPage === tablePagination.maxPage" data-ng-click="setNext()">Next</button></li>
+        </ul>
+		<a href="#/event" class="btn btn-primary btn-md">Add Event</a>
+	</div>
+</div>

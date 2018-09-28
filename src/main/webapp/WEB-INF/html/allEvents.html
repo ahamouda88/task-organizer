@@ -1,0 +1,43 @@
+<div data-ng-controller="EventController">
+	<div class="page-header">
+		<h2>All Events</h2>
+	</div>
+	<div data-ng-init="getAllEvents()">
+		<table class="table table-sevented">
+	  		<thead class="thead-inverse">
+		   	 	<tr>
+		      		<th>#Id</th>
+		      		<th>From</th>
+		      		<th>To</th>
+		      		<th>Description</th>
+		      		<th>Type</th>
+		      		<!-- <th>Edit?</th> -->
+		      		<th>Delete?</th>
+		   	 	</tr>
+	  		</thead>
+	  		<tbody>
+	    			<tr data-ng-repeat="event in events | filter:tablePagination.paginate">
+					<td>{{ event.id }}</td>
+					<td>{{ event.from | date:'MM/dd/yyyy' }}</td>
+					<td>{{ event.to | date:'MM/dd/yyyy' }}</td>
+					<td>{{ event.description | limitTo: 40 }}{{event.description.length > 40 ? '...' : ''}}</td>
+					<td>{{ event.type }}</td>
+				<!-- 	<td>
+						<a href="#/event" class="btn btn-primary btn-md" data-ng-click="setTargetEvent(event)">Edit</a>
+					</td> -->
+					<td>
+						<button type="button" class="btn btn-md btn-danger" data-ng-click="deleteEvent(event)">
+							<i class="glyphicon glyphicon-remove-circle"></i>
+						</button>
+					</td>
+			    </tr>
+	  		</tbody>
+		</table>
+		<ul class="breadcrumb">
+            <li><button class="btn btn-xs" data-ng-disabled="currentPage === 1"  data-ng-click="setPrev()">Prev</button></li>
+            <li>{{ currentPage }}</li>
+            <li><button class="btn btn-xs" data-ng-disabled="tablePagination.maxPage === 0 || currentPage === tablePagination.maxPage" data-ng-click="setNext()">Next</button></li>
+        </ul>
+		<a href="#/event" class="btn btn-primary btn-md">Add Event</a>
+	</div>
+</div>

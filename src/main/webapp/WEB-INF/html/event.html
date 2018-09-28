@@ -1,0 +1,52 @@
+<div data-ng-controller="EventController">
+	<div class="page-header">
+		<h2>Add/Update Event</h2>
+	</div>
+	<form name="eventForm" class="form-horizontal" data-ng-submit="addUpdateEvent()" data-ng-init="initEventPage()">
+		<!-- User Id field -->
+		<input data-ng-model="event.Id" type="hidden" id="eventId"/>
+		<input data-ng-model="event.version" type="hidden" id="version"/>
+
+	    <!-- From Field -->
+		<div class="form-group">
+			<label for="inputFrom" class="control-label col-xs-2">From Date</label>
+			<div class="col-xs-10">
+				<input type="date" data-ng-model="event.from" class="form-control" id="inputTime" required>
+ 			</div>
+		</div>
+		<!-- To Field -->
+		<div class="form-group">
+			<label for="inputTo" class="control-label col-xs-2">To Date</label>
+			<div class="col-xs-10">
+				<input type="date" data-ng-model="event.to" class="form-control" id="inputTime" required>
+ 			</div>
+		</div>
+	    <!-- Description field -->
+		<div class="form-group">
+			<label for="inputDescription" class="control-label col-xs-2">Description</label>
+			<div class="col-xs-10">
+			    <textarea data-ng-model="event.description" class="form-control" rows="5" id="inputDescription" placeholder="Description" required></textarea>
+			</div>
+		</div>
+	    <!-- Type field -->
+		<div class="form-group">
+			<label for="inputType" class="control-label col-xs-2">Roles</label>
+			<div class="col-xs-10" id="inputRoles">
+				<p data-ng-repeat="type in allTypes">
+					<input type="radio" value="{{type}}" data-ng-model="event.type"  data-ng-click="setEventType(type)" data-ng-required="!event.type"> {{ type }}
+				</p>
+			</div>
+		</div>
+		<!-- Submit Button -->
+	    <div class="form-group">
+	        <div class="col-xs-offset-2 col-xs-10">
+	            <button type="submit" class="btn btn-primary">Submit</button>
+	            <a href="#/events" class="btn btn-default">Back</a>
+	        </div>
+	    </div>
+	    <!-- Status messages -->
+		<div data-ng-if="event.response.id && insert" class="alert alert-success" role="alert"><strong>Great!</strong> Event with Id {{event.response.id}} is created successfully.</div>
+	   	<div data-ng-if="event.response.id && !insert" class="alert alert-success" role="alert"><strong>Great!</strong> Event with Id {{event.response.id}} is updated successfully.</div>
+	    <div data-ng-if="event.response.errorCode" class="alert alert-danger" role="alert">{{ event.response.messages }}</div>
+	</form>
+</div>
