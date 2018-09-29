@@ -6,7 +6,7 @@ package mywork.task.organizer.constant;
 public interface PageConstants {
 
 	String APP_PAGE = "app";
-	String EVENT_PAGE = "event";
-	String EVENTS_PAGE = "allEvents";
-	String RECORDS_PAGE = "records";
+	String REMAINING_VISITS_PAGE = "remainingVisits";
+	String DONE_VISITS_PAGE = "doneVisits";
+	String TASK_PAGE = "task";
 }

@@ -1,6 +1,7 @@
 package mywork.task.organizer.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -33,15 +34,20 @@ public class Task implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@NotNull
-	private String description;
+	private int numOfVisits;
+	@NotNull
+	private String comment;
+	@NotNull
+	private String location;
+	@NotNull
+	private String name;
+	@NotNull
+	private Interval type;
+	@NotNull
+	private Date createdAt;
 	@NotNull
 	@JsonProperty("from")
 	private Date start;
-	@NotNull
-	@JsonProperty("to")
-	private Date end;
-	@NotNull
-	private Interval type;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "task", fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JsonIgnoreProperties(value = "task", allowSetters = true)
@@ -50,11 +56,14 @@ public class Task implements Serializable {
 	public Task() {
 	}
 
-	public Task(String description, Date start, Date end, Interval type) {
-		this.description = description;
-		this.start = start;
-		this.end = end;
+	public Task(int numOfVisits, String comment, String location, String name, Interval type, Date start) {
+		this.numOfVisits = numOfVisits;
+		this.comment = comment;
+		this.location = location;
+		this.name = name;
 		this.type = type;
+		this.createdAt = Calendar.getInstance().getTime();
+		this.start = start;
 	}
 
 	public long getVersion() {
@@ -73,28 +82,36 @@ public class Task implements Serializable {
 		this.id = id;
 	}
 
-	public String getDescription() {
-		return description;
+	public int getNumOfVisits() {
+		return numOfVisits;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setNumOfVisits(int numOfVisits) {
+		this.numOfVisits = numOfVisits;
 	}
 
-	public Date getStart() {
-		return start;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setStart(Date start) {
-		this.start = start;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
-	public Date getEnd() {
-		return end;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setEnd(Date end) {
-		this.end = end;
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Interval getType() {
@@ -112,4 +129,21 @@ public class Task implements Serializable {
 	public void setVisits(List<Visit> visits) {
 		this.visits = visits;
 	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getStart() {
+		return start;
+	}
+
+	public void setStart(Date start) {
+		this.start = start;
+	}
+
 }

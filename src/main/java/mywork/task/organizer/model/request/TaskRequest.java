@@ -13,15 +13,19 @@ import mywork.task.organizer.model.Interval;
 @Value.Immutable
 @Value.Style(visibility = ImplementationVisibility.PUBLIC)
 @JsonDeserialize(builder = ImmutableEventRequest.Builder.class)
-public interface EventRequest {
+public interface TaskRequest {
 
 	Optional<Long> id();
 
-	String description();
+	Optional<String> comment();
 
 	LocalDate from();
 
-	LocalDate to();
+	int numOfVisits();
+
+	String location();
+
+	String name();
 
 	Interval type();
 }

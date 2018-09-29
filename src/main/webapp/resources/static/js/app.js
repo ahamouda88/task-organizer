@@ -4,13 +4,13 @@
 	// Handle routes
 	application.config([ '$routeProvider', function($routeProvider) {
 		$routeProvider.when('/', {
-			templateUrl : '/view/records'
-		}).when('/event', {
-			templateUrl : '/view/event'
-		}).when('/events', {
-			templateUrl : '/view/events'
-		}).when('/records', {
-		    templateUrl : '/view/records'
+			templateUrl : '/view/remainingVisits'
+		}).when('/task', {
+			templateUrl : '/view/task'
+		}).when('/doneVisits', {
+			templateUrl : '/view/doneVisits'
+		}).when('/remainingVisits', {
+		    templateUrl : '/view/remainingVisits'
 	    }).otherwise({
 			redirectTo : '/'
 		});

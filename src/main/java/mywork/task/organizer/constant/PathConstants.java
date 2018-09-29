@@ -7,7 +7,7 @@ public interface PathConstants {
 
 	String MAIN_PATH = "/v1/api";
 
-	// Events Constants
-	String EVENTS_PATH = MAIN_PATH + "/events";
-	String RECORDS_PATH = "/records";
+	String TASKS_PATH = MAIN_PATH + "/tasks";
+	String DONE_VISITS_PATH = "/done_visits";
+	String REMAINING_VISITS_PATH = "/remaining_visits";
 }
