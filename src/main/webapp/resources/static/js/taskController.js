@@ -2,7 +2,7 @@
 	var application = angular.module("application");
 
 	// Task Controller
-	function TaskController($scope, $rootScope, $location, TaskService, PagerService) {
+	function TaskController($scope, $rootScope, $location, $filter, TaskService, PagerService) {
 		$scope.allTypes = ['WEEKLY', 'DAILY', 'MONTHLY'];
 
 		$scope.setTaskType = function(type) {
@@ -14,7 +14,7 @@
 			var dataObj = {
 				version : $scope.task.version,
 				id : $scope.task.id,
-				from : $scope.task.from,
+				from : $filter('date')($scope.task.from, "yyyy-MM-dd"),
 				location : $scope.task.location,
 				comment : $scope.task.comment,
 				name : $scope.task.name,

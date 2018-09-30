@@ -4,7 +4,6 @@ import static mywork.task.organizer.util.LocalDateUtil.convertToDate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -83,9 +82,12 @@ public class TaskServiceImpl implements TaskService {
 		if (CollectionUtils.isEmpty(tasks))
 			return new ArrayList<>();
 
-		Date now = Calendar.getInstance().getTime();
-		return tasks.stream().filter(task -> !task.getVisits().stream().map(Visit::getDay)
-				.anyMatch(day -> day.after(now) || day.equals(now))).collect(Collectors.toList());
+		return tasks.stream().filter(task -> task.getVisits().stream().map(Visit::getDay).allMatch(this::isBeforeNow))
+				.collect(Collectors.toList());
+	}
+
+	private boolean isBeforeNow(Date date) {
+		return date.compareTo(convertToDate(LocalDate.now())) < 0;
 	}
 
 	public static Task mapToTask(TaskRequest request) {
