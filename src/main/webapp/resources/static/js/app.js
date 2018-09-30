@@ -7,11 +7,13 @@
 			templateUrl : '/view/remainingVisits'
 		}).when('/task', {
 			templateUrl : '/view/task'
-		}).when('/doneVisits', {
-			templateUrl : '/view/doneVisits'
+		}).when('/doneTasks', {
+			templateUrl : '/view/doneTasks'
 		}).when('/remainingVisits', {
 		    templateUrl : '/view/remainingVisits'
-	    }).otherwise({
+	    }).when('/allTasks', {
+			templateUrl : '/view/allTasks'
+		}).otherwise({
 			redirectTo : '/'
 		});
 	} ]);

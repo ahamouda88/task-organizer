@@ -12,7 +12,7 @@ import mywork.task.organizer.model.Interval;
 
 @Value.Immutable
 @Value.Style(visibility = ImplementationVisibility.PUBLIC)
-@JsonDeserialize(builder = ImmutableEventRequest.Builder.class)
+@JsonDeserialize(builder = ImmutableTaskRequest.Builder.class)
 public interface TaskRequest {
 
 	Optional<Long> id();

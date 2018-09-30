@@ -8,6 +8,6 @@ public interface PathConstants {
 	String MAIN_PATH = "/v1/api";
 
 	String TASKS_PATH = MAIN_PATH + "/tasks";
-	String DONE_VISITS_PATH = "/done_visits";
+	String DONE_TASKS_PATH = "/done_tasks";
 	String REMAINING_VISITS_PATH = "/remaining_visits";
 }

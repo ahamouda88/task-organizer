@@ -1,0 +1,47 @@
+<div data-ng-controller="TaskController">
+	<div class="page-header">
+		<h2>Done Tasks</h2>
+	</div>		
+	<div data-ng-init="getAllTasks()">
+		<table class="table table-stasked">
+	  		<thead class="thead-inverse">
+		   	 	<tr>
+		      		<th>#Id</th>
+		      		<th>Site Name</th>
+		      		<th>Location</th>
+		      		<th>Start Date</th>
+		      		<th>Num Of Visits</th>
+		      		<th>Type</th>
+		      		<th>Comment</th>
+		      		<th>Edit?</th> 
+		      		<th>Delete?</th>
+		   	 	</tr>
+	  		</thead>
+	  		<tbody>
+	    			<tr data-ng-repeat="task in tasks | filter:tablePagination.paginate">
+					<td>{{ task.id }}</td>
+					<td>{{ task.name }}</td>
+					<td>{{ task.location }}</td>
+					<td>{{ task.from | date:'MM/dd/yyyy' }}</td>
+					<td>{{ task.numOfVisits }}</td>
+					<td>{{ task.type }}</td>
+					<td>{{ task.comment | limitTo: 40 }}{{task.comment.length > 40 ? '...' : ''}}</td>
+				    <td>
+						<a href="#/task" class="btn btn-primary btn-md" data-ng-click="setTargetTask(task)">Edit</a>
+					</td>
+					<td>
+						<button type="button" class="btn btn-md btn-danger" data-ng-click="deleteTask(task)">
+							<i class="glyphicon glyphicon-remove-circle"></i>
+						</button>
+					</td>
+			    </tr>
+	  		</tbody>
+		</table>
+		<ul class="breadcrumb">
+            <li><button class="btn btn-xs" data-ng-disabled="currentPage === 1"  data-ng-click="setPrev()">Prev</button></li>
+            <li>{{ currentPage }}</li>
+            <li><button class="btn btn-xs" data-ng-disabled="tablePagination.maxPage === 0 || currentPage === tablePagination.maxPage" data-ng-click="setNext()">Next</button></li>
+        </ul>
+		<a href="#/task" class="btn btn-primary btn-md">Add Task</a>
+	</div>
+</div>

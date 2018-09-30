@@ -33,10 +33,14 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Jackson JDK8 JSR310 Dependency -->
+		<!-- Jackson JDK8 & JSR310 Dependencies -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jdk8</artifactId>
 		</dependency>
 
 		<!-- Immutables Dependency -->

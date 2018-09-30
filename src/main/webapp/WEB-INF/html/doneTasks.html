@@ -1,25 +1,29 @@
 <div data-ng-controller="TaskController">
 	<div class="page-header">
-		<h2>Today's Tasks</h2>
-	</div>
-	<div data-ng-init="getRemainingVisits()">
+		<h2>Done Tasks</h2>
+	</div>		
+	<div data-ng-init="getDoneTasks()">
 		<table class="table table-stasked">
 	  		<thead class="thead-inverse">
 		   	 	<tr>
-		   	 	    <th>#Id</th>
+		      		<th>#Id</th>
 		      		<th>Site Name</th>
 		      		<th>Location</th>
-		      		<th>Day</th>
+		      		<th>Start Date</th>
+		      		<th>Num Of Visits</th>
+		      		<th>Type</th>
 		      		<th>Comment</th>
 		   	 	</tr>
 	  		</thead>
 	  		<tbody>
-	    			<tr data-ng-repeat="visit in visits | filter:tablePagination.paginate">
-	    			    <td>{{ visit.task.id }}</td>
-	    			    <td>{{ visit.task.name }}</td>
-	    				<td>{{ visit.task.location }}</td>
-					<td>{{ visit.day | date:'MM/dd/yyyy' }}</td>
-					<td>{{ visit.task.comment | limitTo: 40 }}{{task.comment.length > 40 ? '...' : ''}}</td>
+	    			<tr data-ng-repeat="task in tasks | filter:tablePagination.paginate">
+					<td>{{ task.id }}</td>
+					<td>{{ task.name }}</td>
+					<td>{{ task.location }}</td>
+					<td>{{ task.from | date:'MM/dd/yyyy' }}</td>
+					<td>{{ task.numOfVisits }}</td>
+					<td>{{ task.type }}</td>
+					<td>{{ task.comment | limitTo: 40 }}{{task.comment.length > 40 ? '...' : ''}}</td>
 			    </tr>
 	  		</tbody>
 		</table>

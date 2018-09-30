@@ -2,7 +2,7 @@
 	var application = angular.module("application"),
 		tasksPath = '/v1/api/tasks',
 		remainingVisits = tasksPath + '/remaining_visits',
-		doneVisits = tasksPath + '/doneVisits;
+		doneTasks = tasksPath + '/done_tasks';
 
 	// Task Service
 	function TaskService($http, $filter) {
@@ -25,9 +25,14 @@
 			return $http.delete(path);
 		};
 
-		// Get Done Visits
-		this.getDoneVisits = function() {
-			return $http.get(doneVisits);
+		// Get All Tasks
+		this.getAllTasks = function() {
+			return $http.get(tasksPath);
+		};
+
+		// Get Done Tasks
+		this.getDoneTasks = function() {
+			return $http.get(doneTasks);
 		};
 
 		// Get Remaining Visits

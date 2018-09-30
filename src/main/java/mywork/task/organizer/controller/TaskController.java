@@ -33,7 +33,7 @@ public class TaskController {
 		if (!isValidRequest(request)) {
 			return ResponseFactoryUtils.createFailResponse(HttpStatus.BAD_REQUEST, ErrorMessages.INVALID_TASK_REQUEST);
 		}
-		if (request.from().isBefore(LocalDate.now())) {
+		if (request.from().isBefore(LocalDate.now().minusDays(1))) {
 			return ResponseFactoryUtils.createFailResponse(HttpStatus.BAD_REQUEST, ErrorMessages.INVALID_START_DATE);
 		}
 		return ResponseFactoryUtils.createResponse(taskService.createTask(request), HttpStatus.CREATED,
@@ -48,7 +48,7 @@ public class TaskController {
 		if (!isValidRequest(request)) {
 			return ResponseFactoryUtils.createFailResponse(HttpStatus.BAD_REQUEST, ErrorMessages.INVALID_TASK_REQUEST);
 		}
-		if (request.from().isBefore(LocalDate.now())) {
+		if (request.from().isBefore(LocalDate.now().minusDays(1))) {
 			return ResponseFactoryUtils.createFailResponse(HttpStatus.BAD_REQUEST, ErrorMessages.INVALID_START_DATE);
 		}
 		return ResponseFactoryUtils.createSuccessResponse(taskService.updateTask(request), HttpStatus.OK);
@@ -60,10 +60,16 @@ public class TaskController {
 				HttpStatus.BAD_REQUEST, String.format(ErrorMessages.INVALID_TASK_ID, taskId));
 	}
 
-	@RequestMapping(value = PathConstants.REMAINING_VISITS_PATH, method = RequestMethod.GET)
-	public ResponseEntity<?> getDoneVisits() {
-		return ResponseFactoryUtils.createResponse(taskService.getDoneVisits(), HttpStatus.OK, HttpStatus.BAD_REQUEST,
-				ErrorMessages.FAILED_GET_DONE_VISITS);
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<?> getAllTasks() {
+		return ResponseFactoryUtils.createResponse(taskService.getTasks(), HttpStatus.OK, HttpStatus.BAD_REQUEST,
+				ErrorMessages.FAILED_GET_ALL_TASKS);
+	}
+
+	@RequestMapping(value = PathConstants.DONE_TASKS_PATH, method = RequestMethod.GET)
+	public ResponseEntity<?> getDoneTasks() {
+		return ResponseFactoryUtils.createResponse(taskService.getDoneTasks(), HttpStatus.OK, HttpStatus.BAD_REQUEST,
+				ErrorMessages.FAILED_GET_DONE_TASKS);
 	}
 
 	@RequestMapping(value = PathConstants.REMAINING_VISITS_PATH, method = RequestMethod.GET)

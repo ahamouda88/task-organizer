@@ -15,17 +15,22 @@ public class SpringAngularController {
 	}
 
 	@RequestMapping(value = "/view/task", method = RequestMethod.GET)
-	public String eventPage() {
+	public String taskPage() {
 		return PageConstants.TASK_PAGE;
 	}
 
 	@RequestMapping(value = "/view/remainingVisits", method = RequestMethod.GET)
-	public String eventsPage() {
+	public String remainingVisitsPage() {
 		return PageConstants.REMAINING_VISITS_PAGE;
 	}
 
-	@RequestMapping(value = "/view/doneVisits", method = RequestMethod.GET)
-	public String recordsPage() {
-		return PageConstants.DONE_VISITS_PAGE;
+	@RequestMapping(value = "/view/allTasks", method = RequestMethod.GET)
+	public String allTasksPage() {
+		return PageConstants.ALL_TASKS_PAGE;
+	}
+
+	@RequestMapping(value = "/view/doneTasks", method = RequestMethod.GET)
+	public String doneTasksPage() {
+		return PageConstants.DONE_TASKS_PAGE;
 	}
 }

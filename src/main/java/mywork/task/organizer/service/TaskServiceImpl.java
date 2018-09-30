@@ -38,9 +38,18 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public Task updateTask(TaskRequest request) {
 		long id = request.id().get();
+		visitDao.deleteVisitsByTaskId(id);
+
+		Task oldTask = taskDao.find(id);
 		Task newTask = mapToTask(request);
-		newTask.setId(id);
-		return taskDao.update(newTask);
+		oldTask.setLocation(newTask.getLocation());
+		oldTask.setName(newTask.getName());
+		oldTask.setVisits(newTask.getVisits());
+		oldTask.setComment(newTask.getComment());
+		oldTask.setStart(newTask.getStart());
+		oldTask.setType(newTask.getType());
+		oldTask.setNumOfVisits(request.numOfVisits());
+		return taskDao.update(oldTask);
 	}
 
 	@Override
@@ -50,13 +59,17 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public List<Visit> getVisitsEqual(LocalDate date) {
-		return visitDao.getVisitsEqualDate(convertToDate(date));
+		List<Visit> visits = visitDao.getVisitsEqualDate(convertToDate(date));
+		sortVisits(visits);
+		return visits;
 	}
 
 	// This method will be used to get remaining visits
 	@Override
 	public List<Visit> getVisitsEqualOrAfter(LocalDate date) {
-		return visitDao.getVisitsAfterDate(convertToDate(date));
+		List<Visit> visits = visitDao.getVisitsAfterDate(convertToDate(date));
+		sortVisits(visits);
+		return visits;
 	}
 
 	@Override
@@ -65,7 +78,7 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public List<Task> getDoneVisits() {
+	public List<Task> getDoneTasks() {
 		List<Task> tasks = getTasks();
 		if (CollectionUtils.isEmpty(tasks))
 			return new ArrayList<>();
@@ -97,5 +110,12 @@ public class TaskServiceImpl implements TaskService {
 		}
 		task.setVisits(visits);
 		return task;
+	}
+
+	private void sortVisits(List<Visit> visits) {
+		if (CollectionUtils.isEmpty(visits))
+			return;
+
+		visits.sort((v1, v2) -> v1.getDay().compareTo(v2.getDay()));
 	}
 }

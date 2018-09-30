@@ -1,52 +1,72 @@
-<div data-ng-controller="EventController">
+<div data-ng-controller="TaskController">
 	<div class="page-header">
-		<h2>Add/Update Event</h2>
+		<h2>Add/Update Task</h2>
 	</div>
-	<form name="eventForm" class="form-horizontal" data-ng-submit="addUpdateEvent()" data-ng-init="initEventPage()">
+	<form name="taskForm" class="form-horizontal" data-ng-submit="addUpdateTask()" data-ng-init="initTaskPage()">
 		<!-- User Id field -->
-		<input data-ng-model="event.Id" type="hidden" id="eventId"/>
-		<input data-ng-model="event.version" type="hidden" id="version"/>
+		<input data-ng-model="task.Id" type="hidden" id="taskId"/>
+		<input data-ng-model="task.version" type="hidden" id="version"/>
 
-	    <!-- From Field -->
-		<div class="form-group">
-			<label for="inputFrom" class="control-label col-xs-2">From Date</label>
-			<div class="col-xs-10">
-				<input type="date" data-ng-model="event.from" class="form-control" id="inputTime" required>
- 			</div>
-		</div>
-		<!-- To Field -->
-		<div class="form-group">
-			<label for="inputTo" class="control-label col-xs-2">To Date</label>
-			<div class="col-xs-10">
-				<input type="date" data-ng-model="event.to" class="form-control" id="inputTime" required>
- 			</div>
-		</div>
-	    <!-- Description field -->
-		<div class="form-group">
-			<label for="inputDescription" class="control-label col-xs-2">Description</label>
-			<div class="col-xs-10">
-			    <textarea data-ng-model="event.description" class="form-control" rows="5" id="inputDescription" placeholder="Description" required></textarea>
+		<!-- Site Name field -->
+	    <div class="form-group">
+	        <label for="inputName" class="control-label col-xs-2">Site Name</label>
+	        <div class="col-xs-10">
+	            <input data-ng-model="task.name" class="form-control" id="inputName" placeholder="Site Name" required>
+	        </div>
+	    </div>
+
+	    <!-- Location field -->
+	    <div class="form-group">
+	        <label for="inputLocation" class="control-label col-xs-2">Location</label>
+	        <div class="col-xs-10">
+	            <input data-ng-model="task.location" class="form-control" id="inputLocation" placeholder="Location" required>
+	        </div>
+	    </div>
+
+		<!-- Number of Visits field -->
+	    <div class="form-group">
+		    <label for="inputNumOfVisits" class="control-label col-xs-2">Num of Visits:</label>
+		    <div class="col-xs-10">
+		        <input type="number" data-ng-model="task.numOfVisits" class="form-control" id="inputNumOfVisits" min="1" placeholder="Number of Visits" required>
 			</div>
 		</div>
+
+	    <!-- Start Date field -->
+		<div class="form-group">
+			<label for="inputFrom" class="control-label col-xs-2">Start Date</label>
+			<div class="col-xs-10">
+				<input type="date" data-ng-model="task.from" class="form-control" id="inputTime" required>
+ 			</div>
+		</div>
+
 	    <!-- Type field -->
 		<div class="form-group">
-			<label for="inputType" class="control-label col-xs-2">Roles</label>
-			<div class="col-xs-10" id="inputRoles">
+			<label for="inputType" class="control-label col-xs-2">Types</label>
+			<div class="col-xs-10" id="inputTypes">
 				<p data-ng-repeat="type in allTypes">
-					<input type="radio" value="{{type}}" data-ng-model="event.type"  data-ng-click="setEventType(type)" data-ng-required="!event.type"> {{ type }}
+					<input type="radio" value="{{type}}" data-ng-model="task.type"  data-ng-click="setTaskType(type)" data-ng-required="!task.type"> {{ type }}
 				</p>
 			</div>
 		</div>
+		
+	    <!-- Comment field -->
+		<div class="form-group">
+			<label for="inputDescription" class="control-label col-xs-2">Comment</label>
+			<div class="col-xs-10">
+			    <textarea data-ng-model="task.comment" class="form-control" rows="5" id="inputComment" placeholder="Comment"></textarea>
+			</div>
+		</div>
+
 		<!-- Submit Button -->
 	    <div class="form-group">
 	        <div class="col-xs-offset-2 col-xs-10">
 	            <button type="submit" class="btn btn-primary">Submit</button>
-	            <a href="#/events" class="btn btn-default">Back</a>
+	            <a href="#/allTasks" class="btn btn-default">Back</a>
 	        </div>
 	    </div>
 	    <!-- Status messages -->
-		<div data-ng-if="event.response.id && insert" class="alert alert-success" role="alert"><strong>Great!</strong> Event with Id {{event.response.id}} is created successfully.</div>
-	   	<div data-ng-if="event.response.id && !insert" class="alert alert-success" role="alert"><strong>Great!</strong> Event with Id {{event.response.id}} is updated successfully.</div>
-	    <div data-ng-if="event.response.errorCode" class="alert alert-danger" role="alert">{{ event.response.messages }}</div>
+		<div data-ng-if="task.response.id && insert" class="alert alert-success" role="alert"><strong>Great!</strong> Task with Id {{task.response.id}} is created successfully.</div>
+	   	<div data-ng-if="task.response.id && !insert" class="alert alert-success" role="alert"><strong>Great!</strong> Task with Id {{task.response.id}} is updated successfully.</div>
+	    <div data-ng-if="task.response.errorCode" class="alert alert-danger" role="alert">{{ task.response.messages }}</div>
 	</form>
 </div>

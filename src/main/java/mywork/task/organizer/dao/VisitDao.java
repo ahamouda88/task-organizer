@@ -3,8 +3,8 @@ package mywork.task.organizer.dao;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -20,6 +20,23 @@ public class VisitDao extends AbstractDao<Visit, Long> {
 		super(Visit.class);
 	}
 
+	public void deleteVisitsByTaskId(long taskId) {
+		try {
+			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+
+			CriteriaDelete<Visit> delete = cb.createCriteriaDelete(Visit.class);
+
+			Root<Visit> from = delete.from(Visit.class);
+			// set where clause
+			delete.where(cb.equal(from.get("task"), taskId));
+
+			// perform update
+			this.entityManager.createQuery(delete).executeUpdate();
+		} catch (Exception ex) {
+			logger.error("Unable to delete visits of task Id: " + taskId, ex);
+		}
+	}
+
 	public List<Visit> getVisitsEqualDate(Date date) {
 		try {
 			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
@@ -30,10 +47,9 @@ public class VisitDao extends AbstractDao<Visit, Long> {
 			Predicate predicate = cb.equal(from.get("day"), date);
 			cq.where(cb.and(predicate));
 
-			TypedQuery<Visit> query = entityManager.createQuery(cq);
-			return query.getResultList();
+			return entityManager.createQuery(cq).getResultList();
 		} catch (Exception ex) {
-			logger.error("Unable to get today's event records", ex);
+			logger.error("Unable to get visits", ex);
 			return null;
 		}
 	}
@@ -48,29 +64,10 @@ public class VisitDao extends AbstractDao<Visit, Long> {
 			Predicate predicate = cb.greaterThanOrEqualTo(from.get("day"), date);
 			cq.where(cb.and(predicate));
 
-			TypedQuery<Visit> query = entityManager.createQuery(cq);
-			return query.getResultList();
+			return entityManager.createQuery(cq).getResultList();
 		} catch (Exception ex) {
-			logger.error("Unable to get today's event records", ex);
+			logger.error("Unable to get visits", ex);
 			return null;
 		}
 	}
-
-	// private List<Visit> getVisits(List<Predicate> predicates) {
-	// try {
-	// CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-	// CriteriaQuery<Visit> cq = cb.createQuery(Visit.class);
-	// Root<Visit> from = cq.from(Visit.class);
-	// cq.select(from);
-	//
-	// if (!predicates.isEmpty()) {
-	// cq.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
-	// }
-	// TypedQuery<Visit> query = entityManager.createQuery(cq);
-	// return query.getResultList();
-	// } catch (Exception ex) {
-	// logger.error("Unable to get today's event records", ex);
-	// return null;
-	// }
-	// }
 }

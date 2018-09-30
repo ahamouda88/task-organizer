@@ -16,10 +16,10 @@
 				id : $scope.task.id,
 				from : $scope.task.from,
 				location : $scope.task.location,
-				commont : $scope.task.commont,
+				comment : $scope.task.comment,
 				name : $scope.task.name,
 				numOfVisits : $scope.task.numOfVisits,
-				type : $scope.task.type)
+				type : $scope.task.type
 			};
 
 			// Verify if it is an insert or update request
@@ -33,7 +33,7 @@
 			response.success(function(data) {
 				$scope.task = {};
 				$scope.task.response = data;
-				//$location.path("/doneVisits");
+				//$location.path("/doneTasks");
 			});
 			response.error(function(data) {
 				$scope.task.response = data;
@@ -53,6 +53,7 @@
 
 		// Set target Task, when row is selected
 		$scope.setTargetTask = function(task) {
+			task.from = new Date(task.from);
 			TaskService.setTargetTask(task);
 		};
 
@@ -63,9 +64,18 @@
 			TaskService.setTargetTask(emptyTask);
 		};
 
-		// Get Done Visits
-		$scope.getDoneVisits = function() {
-			var response = TaskService.getDoneVisits();
+		// Get All Tasks
+		$scope.getAllTasks = function() {
+			var response = TaskService.getAllTasks();
+			response.success(function(data) {
+				$scope.tasks = data;
+				setUpPagination(data);
+			});
+		};
+
+		// Get Done Tasks
+		$scope.getDoneTasks = function() {
+			var response = TaskService.getDoneTasks();
 			response.success(function(data) {
 				$scope.tasks = data;
 				setUpPagination(data);

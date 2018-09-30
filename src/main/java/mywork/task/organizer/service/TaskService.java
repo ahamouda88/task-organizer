@@ -20,5 +20,5 @@ public interface TaskService {
 
 	List<Task> getTasks();
 
-	List<Task> getDoneVisits();
+	List<Task> getDoneTasks();
 }
